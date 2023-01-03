@@ -1,0 +1,37 @@
+<div class="container inspires-section__inner">
+    <div id="section-cta">
+      <a href="{{ section.settings.link }}" class="button">{{ section.settings.linktext }}</a>
+    </div>
+</div>
+<style type="text/css">
+  div#section-cta a.button {
+    border-radius: 0;
+    background-color: #404041;
+    font-size: 20px;
+    margin: 20px auto;
+}
+  #section-cta{
+    display:flex;
+    justify-content:center; 
+    padding-bottom:50px; 
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Call to action",
+  "settings": [
+    {
+      "id": "link",
+      "type": "url",
+      "label": "Button link"
+    },
+    {
+      "id": "linktext",
+      "type": "text",
+      "label": "Button text",
+      "default": "Click Here"
+    }
+  ]
+}
+{% endschema %}

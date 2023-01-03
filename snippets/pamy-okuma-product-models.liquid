@@ -1,0 +1,89 @@
+<h3 class="tab-heading">Models</h3>
+<div style="display:none;">{{product.metafields.vdetail.full}}</div>
+<div class="container">
+{% comment %}{% endcomment %}
+{% assign m_columns = ',,average_dealer_margin,length,width,height,weight,action,application,bearings,braided_line_weight,detail,dimensions,fly_line_capacity,foregrip_length,frame,frame_style,gear_ratio,gimbal_type,guide_type,handle_style,left_sideplate,line_capacity,line_retrieve,line_weight,lure_weight,max_drag_at_full_with_freespool,max_drag_pressure,max_drag_at_strike_with_freespool,monofilament_line_capacity_diameter_in_mm,Product_MSRP,number_of_guides,reargrip_length,reel_description,reel_model,reel_seat,reel_seat_description,right_sideplate,rod_blank,rod_length,rod_power,rod_taper,rod_reel_style,rod_tube,rod_weight_oz,rotor,Product_Sections,sideplates,spool,spool_diam,spooled_with_line,spool_width,weight_oz,oversized,' %}
+{% assign m_variants = product.metafields.vdetail.full | split:'#ld||vs#' %}
+{% assign m_keys = '' %}
+{% for m_variant in m_variants %}
+	{% assign m_tmp = m_variant | split:':ld$@#os:' %}
+	{% assign m_vals = m_tmp[1] | split:'|ld#$ms|' %}
+	{% for m_val in m_vals %}
+		{% assign m_tmp = m_val | split:':ld$#os:' %}
+		{% assign m_okey = m_tmp[0] %}
+		{% assign m_oval = m_tmp[1] %}
+		{% assign m_chkokey = ',' | append: m_okey | append: ',' %}
+		{% if m_columns contains m_chkokey %}
+			{% assign m_keys = m_keys | append: ',' | append: m_okey %}
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+{% assign m_keys = m_keys | remove_first: "," | split:',' | uniq %}
+<table class="model_tables">
+  <thead>
+    <tr class="thead">
+      <th class="model"># MODEL</th>
+      {% for m_o in m_keys %}
+      <th class="{{m_o}}">
+        {% if m_o == 'monofilament_line_capacity_diameter_in_mm' %}
+        	MONO-LINE CAPACITY
+        {% else %}
+        	{{ m_o | replace: '_', ' ' | upcase }}
+        {% endif %}
+      </th>
+      {% endfor %}
+      <th class="price">PRICE</th>
+      <th class="action"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% assign cnt = 0 %}
+    {% assign pvskus = ',' %}
+    {% for pv in product.variants %}
+    	{% assign pvskus = pvskus | append:pv.sku %}
+    	{% assign pvskus = pvskus | append:',' %}
+    {% endfor %}
+    {% for m_variant in m_variants %}
+      {% assign m_tmp = m_variant | split:':ld$@#os:' %}
+      {% assign m_sku = m_tmp[0] %}
+      {% assign chk_sku = ',' | append:m_sku | append:',' %}
+      {% if pvskus contains chk_sku %}
+        {% assign cnt = 1 | minus: cnt %}
+        {% assign m_vals = m_tmp[1] | split:'|ld#$ms|' %}
+        <tr class="{% if cnt == 1 %}odd{% else %}even{% endif%}">
+          <td class="model" data-title="MODEL:">{{m_sku}}</td>
+          {% for m_o in m_keys %}
+              {% assign m_o_found = false %}
+            {% for m_val in m_vals %}
+              {% assign m_tmp = m_val | split:':ld$#os:' %}
+              {% assign m_okey = m_tmp[0] %}
+              {% assign m_oval = m_tmp[1] %}
+            {% if m_okey == m_o %}
+          <td class="{{m_o}}" data-title="{{ m_o | replace: '_', ' ' | upcase }}">{{ m_oval }}</td>
+                  {% assign m_o_found = true %}
+                {% endif %}
+            {% endfor %}
+              {% if m_o_found == false %}
+          <td class="{{m_o}}">&nbsp;</td>
+              {% endif %}
+          {% endfor %}
+          {% for variant in product.variants %}
+              {% if variant.sku == m_sku %}
+          <td class="price" data-title="PRICE">{{variant.price | money }}</td>
+          <td class="action">{% if variant.available %}<form action="/cart/add" method="post" enctype="multipart/form-data">
+            <input type="number" name="quantity" value="1"/>
+            <input name="id" value="{{variant.id}}" type="hidden"/> 
+            <input class="btn" type="submit" name="add" value="Add to Cart" /></form>
+            {% else %}
+            <a href="/apps/store-locator">Find Dealer</a>
+            {% endif %}
+          </td>
+              {% endif %}
+          {% endfor %}
+        </tr>
+      {% endif %}	
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>

@@ -1,0 +1,90 @@
+{% comment %} for-desktop {% endcomment %}
+    <div class="product-tabs for-desktop">
+        <div id="tabs" class="htabs">
+        	{% if product.metafields.pdetail.features %}
+            <a href="#tab-features" class="selected">{{'products.product.features' | t}}</a>
+            {% endif %}
+            {% if product.metafields.pdetail.technologies %}
+            <a href="#tab-technology">{{'products.product.technology' | t}}</a>
+            {% endif %}
+            <a href="#tab-models">{{'products.product.models' | t}}</a>
+            {%- if settings.product_tab_content_1 != blank -%}
+            <a href="#tab-cus-1">{{ settings.product_tab_title_1 }}</a>
+            {%- endif -%}
+            {%- if settings.product_tab_content_2 != blank -%}
+            <a href="#tab-cus-2">{{ settings.product_tab_title_2 }}</a>
+            {%- endif -%}
+            {%- if settings.product_tab_content_3 != blank -%}
+            <a href="#tab-cus-3">{{ settings.product_tab_title_3 }}</a>
+            {%- endif -%}
+            {%- if settings.product_tab_content_4 != blank -%} 
+            <a href="#tab-cus-4">{{ settings.product_tab_title_4 }}</a>
+            {%- endif -%}
+        </div>
+
+        <div class="tab-contents">
+        	{% if product.metafields.pdetail.features %}
+            <div id="tab-features" class="tab-content" itemprop="description">
+                {% include 'pamy-okuma-product-features' %}
+            </div>
+            {% endif %}
+            {% comment %} /tab-features {% endcomment %}
+
+            {% if product.metafields.pdetail.technologies %}
+            <div id="tab-technology" class="tab-content" itemprop="description">
+                {% include 'pamy-okuma-product-technology' %}
+            </div>
+            {% endif %}
+            {% comment %} /tab-technology {% endcomment %}
+            
+            <div id="tab-models" class="tab-content">
+                {% comment %}{% include 'pamy-okuma-product-models' %}{% endcomment %}
+				{% comment %} 
+              		commented old private app functionality 
+              		and created new file for accentuate fields.
+              	{% endcomment %}
+              	{% include 'accentuate-product-models' %}
+            </div>
+            
+            {%- if settings.product_tab_content_1 != blank -%}
+            <div id="tab-cus-1" class="tab-content">{{- pages[settings.product_tab_content_1].content -}}</div>
+            {%- endif -%}
+            {%- if settings.product_tab_content_2 != blank -%}
+            <div id="tab-cus-2" class="tab-content">{{- pages[settings.product_tab_content_2].content -}}</div>
+            {%- endif -%}
+            {%- if settings.product_tab_content_3 != blank -%}
+            <div id="tab-cus-3" class="tab-content">{{- pages[settings.product_tab_content_3].content -}}</div>
+            {%- endif -%}
+            {%- if settings.product_tab_content_4 != blank -%}
+            <div id="tab-cus-4" class="tab-content">{{- pages[settings.product_tab_content_4].content -}}</div>
+            {%- endif -%}
+        </div>
+    </div>
+{% comment %} for-mobile {% endcomment %}
+    <div class="for-mobile" id="product-accordion">
+        <div class="container">
+            <div class="col-xs-12">
+                <div class="product-accordion-item open">
+                    <a href="#accordion-item-features" class="selected">{{'products.product.features' | t}}</a>
+                    <div id="accordion-item-features" class="tab-features" class="tab-content" itemprop="description">
+                        {% include 'pamy-okuma-product-features' %}
+                    </div>
+                </div>
+                {% if product.metafields.pdetail.technologies %}
+                <div class="product-accordion-item">
+                    <a href="#accordion-item-technology">{{'products.product.technology' | t}}</a>
+                    <div id="accordion-item-technology" class="tab-technology" class="tab-content" itemprop="description">
+                        {% include 'pamy-okuma-product-technology' %}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="product-accordion-item">
+                    <a href="#accordion-item-models">{{'products.product.models' | t}}</a>
+                    <div id="accordion-item-models" class="tab-models" class="tab-content" itemprop="description">
+                      {% comment %}{% include 'pamy-okuma-product-models' %}{% endcomment %}
+              		  {% include 'accentuate-product-models' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

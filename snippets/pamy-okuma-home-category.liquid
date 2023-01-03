@@ -1,0 +1,18 @@
+{% assign category_name = pamy-okuma-home-category | append: '_name' %}
+{% assign category_image = pamy-okuma-home-category | append: '_image' %}
+{% assign category_url = pamy-okuma-home-category | append: '_url' %}
+{% if pamy-okuma-home-category == 'category1' or pamy-okuma-home-category == 'category2' %}
+	{%- assign image_size = '586x749' -%}
+	{%- assign small_class = '' -%}
+{% else %}
+	{%- assign image_size = '586x367' -%}
+	{%- assign small_class = ' small' -%}
+{% endif %}
+<div class="okuma-category{{ small_class }} okuma-{{ pamy-okuma-home-category }}">
+  <div class="dark-overlay"></div>
+  <div class="okuma-category-image" style="background-image: url('{{ section.settings[category_image] | img_url:image_size}}');"></div>
+	<div class="okuma-category-inner">
+    <h3>{{ section.settings.prefix }} <strong>{{ section.settings[category_name] }}</strong></h3>
+    <a class="btn" href="{{ section.settings[category_url] }}"><span>{{ section.settings.button_text }}</span></a>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+{% if section.settings.enabled %}
+
+<div class="inspires-section  footer__inner" id="shopify-section-inspires-footer">
+    <a class="footer__button" id="special-button" href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+    <div class="footer__copyright">{{ section.settings.copyright }}</div>
+</div>
+<style type="text/css">
+	#shopify-section-inspires-footer {
+
+			background-color: {{section.settings.bg_color}};
+			color: {{section.settings.text_color}};
+
+	}
+	.footer__button {
+		{% if section.settings.button_bg_color %}
+			background-color: {{section.settings.button_bg_color}};
+		{% endif %}
+		{% if section.settings.button_text_color %}
+			color: {{section.settings.button_text_color}};
+		{% endif %}
+		{% if section.settings.button_radius %}
+			border-radius: {{section.settings.button_radius}}px;
+		{% endif %}
+	}
+  #special-button{
+    padding: 20px 30px!important;
+  }
+  
+
+#shopify-section-inspires-footer {
+    background: #515151;
+    color: #fff;
+  padding:40px 0;
+  
+}
+  .footer__copyright {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+  }
+ .footer__button {
+    display: inline-block;
+    padding: 12px 80px;
+    background: #838383;
+  }
+.footer {
+    position: relative;
+    text-align: center;
+}
+.inspires-section {
+    padding: 30px 0;
+}
+.footer {
+    position: relative;
+    overflow: hidden;
+}
+
+  @media (max-width:900px){
+    .footer__copyright{
+      position:relative; 
+      bottom:0;
+      left:0px;
+      margin-top:2rem;
+    }
+  }
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Footer settings",
+	"class": "inspires-section footer",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Return home"
+        },
+		{
+          "type": "text",
+          "id": "button_link",
+          "label": "Button Link",
+          "default": "https://okumafishingusa.com"
+        },
+		{
+          "type": "text",
+          "id": "copyright",
+          "label": "Copyright Text",
+          "default": "Okuma @2018"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#515151"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        },
+		{
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color",
+          "default": "#838383"
+        },
+		{
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#fff"
+        },
+		{
+          "type":      "range",
+          "id":        "button_radius",
+          "min":       0,
+          "max":        100,
+          "step":       1,
+          "unit":       "px",
+          "label":     "Button Border Radius",
+          "default":   0
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,139 @@
+{% if section.settings.enabled == true %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 okuma-category-wrapper no-padding-right">
+        {% include 'pamy-okuma-home-category' with 'category1' %}
+      </div>
+      <div class="col-xs-12 col-sm-4 okuma-category-wrapper no-padding-right">
+        {% include 'pamy-okuma-home-category' with 'category2' %}
+      </div>
+      <div class="col-xs-12 col-sm-4 okuma-category-wrapper-column">
+        <div class="row">
+          <div class="col-xs-12 okuma-category-wrapper">
+            {% include 'pamy-okuma-home-category' with 'category3' %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 okuma-category-wrapper">
+            {% include 'pamy-okuma-home-category' with 'category4' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Okuma Categories",
+  "class": "okuma-categories",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enabled",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "prefix",
+      "label": "Prefix Text",
+      "default": "OKUMA"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+      {
+        "type": "image_picker",
+        "id": "category1_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "category1_name",
+        "label": "Name"
+      },
+      {
+        "type": "text",
+        "id": "category1_url",
+        "label": "Link"
+      },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+      {
+        "type": "image_picker",
+        "id": "category2_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "category2_name",
+        "label": "Name"
+      },
+      {
+        "type": "text",
+        "id": "category2_url",
+        "label": "Link"
+      },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+      {
+        "type": "image_picker",
+        "id": "category3_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "category3_name",
+        "label": "Name"
+      },
+      {
+        "type": "text",
+        "id": "category3_url",
+        "label": "Link"
+      },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+      {
+        "type": "image_picker",
+        "id": "category4_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "category4_name",
+        "label": "Name"
+      },
+      {
+        "type": "text",
+        "id": "category4_url",
+        "label": "Link"
+      }
+  ],
+  "presets": [
+  {
+    "name": "Okuma Categories",
+    "category": "Olibro Design"
+  }
+ ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

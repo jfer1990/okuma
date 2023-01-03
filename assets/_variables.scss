@@ -1,0 +1,63 @@
+/**********************************
+** BEGIN variables & helpers
+************************************************/
+$heading-font: 'Barlow Semi Condensed';
+$body-font: 'Roboto';
+$border-color: #e8e8e6;
+$primary-color: #a58a52;
+$footer-color: #6b6b6b;
+@mixin translate($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform: translate($x, $y);
+    -ms-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+
+@mixin translateX($x) {
+    -webkit-transform: translateX($x);
+    -moz-transform: translateX($x);
+    -ms-transform: translateX($x);
+    transform: translateX($x);
+}
+
+@mixin translateY($y) {
+    -webkit-transform: translateY($y);
+    -moz-transform: translateY($y);
+    -ms-transform: translateY($y);
+    transform: translateY($y);
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content
+    }
+    &:-moz-placeholder {
+        @content
+    }
+    &::-moz-placeholder {
+        @content
+    }
+    &:-ms-input-placeholder {
+        @content
+    }
+}
+
+@mixin overlay($zindex, $background-color) {
+    content: "";
+    background-color: $background-color;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: $zindex;
+    display: block;
+}
+
+/***********************************************
+** END variables
+***********************************/

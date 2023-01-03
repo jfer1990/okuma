@@ -1,0 +1,48 @@
+{% if section.settings.enabled %}
+<div class="container inspires-section__inner inspires-manifesto__content">
+	<div class="inspires-manifesto__text">
+    	{{section.settings.content}}
+    </div>
+</div>
+<style type="text/css">
+	#shopify-section-inspires-custom-manifesto {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		{% if section.settings.text_color %}
+			color: {{section.settings.text_color}};
+		{% endif %}
+	}
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Second Manifesto",
+	"class": "inspires-section",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#848484"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        }
+	]
+  }
+{% endschema %}

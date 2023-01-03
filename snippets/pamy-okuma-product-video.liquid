@@ -1,0 +1,20 @@
+{% assign video_id = product.metafields.pdetail.product_video %}
+{% if video_id %}
+<div class="product-video">
+    <div class="product-video-bg"></div>
+    <div class="product-video-viewport">
+        <div class="container">
+            <div class="product-video-box" data-video="{{video_id}}">
+                <iframe src="https://player.vimeo.com/video/{{video_id}}"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>            
+                <div class="product-video-overlay">
+                    <div class="product-video-overlay-hover">
+                        <div class="watch-video-text">WATCH THE VIDEO</div>
+                        <a href="#" class="play-video"></a>
+                        <div class="vertline"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

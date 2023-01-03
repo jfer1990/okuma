@@ -1,0 +1,31 @@
+{% if product.metafields.pdetail.technologies %}
+       
+    {% assign technology_handles = product.metafields.pdetail.technologies | split: "|" %}
+    <div class="container">
+    <h3 class="tab-heading">Technology</h3>
+
+        {% comment %} File to edit: snippets/pamy-okuma-product-technology {% endcomment %}
+        {% assign i = 0 %}
+        {% assign column_count = 2 %}
+        {% assign collection_size = technology_handles.size %}
+        {% for technology_handle in technology_handles  %}
+                {% assign check_loop = i | modulo: column_count %}
+                {% if check_loop == 0 %}
+                <div class="row">
+                {% endif %}
+                {% assign i = i | plus: 1 %}
+
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="item">
+                            {{ pages[technology_handle].content }}
+                        </div>
+                    </div>
+                {% assign check_loop = i | modulo: column_count %}
+                {% if check_loop == 0 or i == collection_size %}
+                </div>
+                {% endif %}
+        {% endfor %}
+        
+    </div>
+
+{% endif %}

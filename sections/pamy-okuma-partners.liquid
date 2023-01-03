@@ -1,0 +1,148 @@
+{%- if section.blocks.size > 0 -%}
+<div class="container">
+    <div class="partners">
+      <h2 class="partners__heading section-heading">OUR MEDIA PARTNERS</h2>
+      <div class="partners__banners">
+        
+        {%- for block in section.blocks limit: section.blocks.size -%}
+          {%- assign image_width = block.settings.image_width -%}
+          {%- assign image_height = block.settings.image_height -%}
+          {%- if block.settings.banner_width != '0' -%}
+            {%- capture image_size %}{{ image_width }}x{{ image_height }}{%- endcapture -%}
+            <div class="partners__banner" {{ block.shopify_attributes }}>
+              <a class="partners__link" href="{{block.settings.banner_link}}">
+                {%- if block.settings.banner_image != blank -%}
+                {%- assign img_url = block.settings.banner_image | img_url: image_size, crop: 'center' -%}
+                {%- else -%}
+                {%- assign img_url = '' -%}
+                {%- endif -%}
+                {%- if img_url == blank -%}
+                <img class="partners__image" src="{{"noimage_500_300.png" | asset_img_url : "master"}}" alt="" />
+                {%- else -%}
+                <img class="partners__image" src="{{img_url}}" alt="" />
+                {%- endif -%}
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+    function partners($) {
+        // okuma-slider
+        $('.partners__banners').slick({
+            arrows: false,
+            infinite: true,
+            dots: true,
+            slidesToShow: {{section.settings.banners_per_row}},
+            slidesToScroll: {{section.settings.banners_per_row}},
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                  }
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  }
+                },
+            ]
+        });
+
+        //
+        $('.partners__banners').on('init', function (event, slick) {
+            $('.partners__image').matchHeight();
+        });
+
+        $('.partners__image').matchHeight({
+        });
+    }
+    jQuery(document).ready(function() {
+        partners(jQuery);
+    });
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Okuma Partners",
+  "class": "index-section section-wrapper okuma-partners",
+  "settings": [
+  {
+    "type": "checkbox",
+    "id": "placement_fullwidth",
+    "label": "Force Full Width"
+  },
+  {
+    "type": "checkbox",
+    "id": "visible_on_mobile",
+    "label": "Show on Mobile",
+    "default": true
+  },
+  {
+    "type": "text",
+    "id": "banners_per_row",
+    "label": "Banners Per Row",
+    "default": "5"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "image",
+    "name": "Image",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Pick an Image"
+    },
+    {
+      "type": "text",
+      "id": "image_width",
+      "label": "Width (in pixels)",
+      "default": "500"
+    },
+    {
+      "type": "text",
+      "id": "image_height",
+      "label": "Height (in pixels)",
+      "default": "300"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "banner_link",
+      "label": "Link",
+      "default": "#"
+    }
+    ]
+  }
+  ],
+  "presets": [
+  {
+    "name": "Okuma Partners",
+    "category": "Olibro Design",
+    "settings": {
+    "visible_on_mobile": true
+  },
+  "blocks": [
+  ]
+}
+]
+}
+{% endschema %}

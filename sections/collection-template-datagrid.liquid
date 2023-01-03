@@ -1,0 +1,54 @@
+{% assign products_per_page = section.settings.products_per_page %}
+
+{% paginate collection.products by products_per_page %}
+
+  {% for product in collection.products %}
+    datahere
+  {% endfor %}
+
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "label": "Products per page",
+        "min": 2,
+        "max": 50,
+        "step": 1,
+        "default": 24
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_price",
+        "label": "Show price",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sale_label",
+        "label": "Show sale label",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_sold_out_label",
+        "label": "Show sold out label",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_sorting",
+        "label": "Enable collection sorting",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,111 @@
+<div class="col-sm-{{product_center_grid}} product-center product clearfix">
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    {%- if settings.product_social_share -%}
+      <div class="share for-desktop">
+        <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
+      </div>
+    {%- endif -%}
+
+    <div class="product-cat for-desktop">{{product.metafields.pdetail.subcat_code}}</div>
+
+    <h2 class="name {%- if settings.product_hide_breadcrumb == false -%}{{" hidden"}}{%- endif %} for-desktop">{{product.title}}</h2>    
+    {%- comment -%}  INFO AND STOCK  {%- endcomment -%}
+    <div class="description {%- if settings.product_info_status == false and settings.product_info_brand == false and settings.product_info_sku == false -%}{{- " hide" -}}{%- endif -%}">
+      <p class="{%- if settings.product_info_brand == false -%}hide{%- endif -%}" ><span>{{'products.product.vendor' | t}}</span> <span>{{product.vendor | link_to_vendor}}</span></p>
+      <p id="product_sku" class="variant-sku sku_wrapper{%- if current_variant.sku == blank or settings.product_info_sku == false-%}{{- " hide" -}}{%- endif -%}">
+		<span>{{'products.product.sku' | t}}</span> 
+        <span class="sku" itemprop="sku">{{ current_variant.sku }}</span>
+      </p>
+      <p class="variation-availability{%- if settings.product_info_status == false -%}{{- " hide" -}}{%- endif -%}">
+        <span>{{- 'products.product.stock' | t}}</span>
+        {%- if current_variant -%}
+        {%- if current_variant.available -%}
+        {%- if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" -%}
+        {%- if current_variant.inventory_quantity > 0 -%}
+        <span class="stock stock-{{ section.id }} in-stock">{%- if settings.product_inventory == '1' -%}{{- current_variant.inventory_quantity  -}}{{- " " -}}{%- endif -%}{{ 'products.product.in_stock' | t | escape }}</span>
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.out_of_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} in-stock">{{ 'products.product.in_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.out_of_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.unavailable' | t | escape }}</span>
+        {%- endif -%}
+      </p>
+    </div>
+    {%- comment -%} SHORT DESCRIPTION {%- endcomment -%}
+    <div class="for-desktop short-description">{{- product.description  -}}</div>
+    {%- comment -%} QUANTITY AND ADD TO CART {%- endcomment -%}
+
+    {%- comment -%} PRICE {%- endcomment -%}
+    <div class="countdown-wrapper">
+      {%- include 'limited-offer' -%}
+    </div>
+    {%- if product.price_varies -%}
+    <div class="price-range price">
+      <span class="msrp-label">MSRP</span><span class="price-new"><span class="money">{{- product.price_min | money -}}</span></span> - <span class="price-new"><span class="money">{{- product.price_max | money -}}</span></span>
+    </div>
+    {%- else -%}
+    <div class="product-single__price-{{- section.id -}}">
+      <div id="price" class="price">
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+        <span  id="ProductPrice-{{- section.id -}}" class="amount price-new">
+          <span class="money">
+            {{- current_variant.price | money -}}
+          </span>
+        </span>
+        {%- else -%}
+        <span id="ProductPrice-{{- section.id -}}" class="amount price-new">
+          <span class="money">{{- current_variant.price | money -}}</span>
+        </span>
+        {%- endif -%}
+        <span id="ComparePrice-{{- section.id -}}" class="amount price-old{%- unless current_variant.compare_at_price > current_variant.price %}{{- " hide" -}}{%- endunless -%}">
+          <span class="money">
+            {%- if current_variant.compare_at_price > current_variant.price -%}
+            {{- current_variant.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
+        </span>
+        <span class="hide" itemprop="price">{{- product.price | money_without_currency -}}</span>
+        <meta itemprop="priceCurrency" content="USD" />
+      </div>
+    </div>
+    {%- endif -%}
+
+    <a href="javascript:void(0);" class="for-desktop btn select-model"><span>Select Model</span></a>
+    <a href="javascript:void(0);" id="mobile-select-model" class="for-mobile btn select-model"><span>Select Model</span></a>
+
+    <a href="#modal" class="link link--california">California Prop 65 Warning</a>
+    <div class="remodal remodal--california" data-remodal-id="modal">
+      <button data-remodal-action="close" class="remodal-close"></button>
+      
+
+      <h3>What is Proposition 65?</h3>
+
+      <p>Proposition 65 is a California law that applies to companies selling products in California. Proposition 65 requires warnings if a product contains any listed chemical present above very low levels. Proposition 65’s warning standards are among the most stringent in the world. Proposition 65 is not a product safety law, but rather a "right-to-know" law. Businesses are required to provide warnings to comply with Proposition 65.</p>
+
+      <p>There are over 800 chemicals on the Proposition 65 list, which is administered by California's Office of Environmental Health Hazard Assessment (OEHHA), a part of the California Environmental Protection Agency. The list includes naturally occurring and man-made chemicals.  Proposition 65 warnings can be seen for a wide variety of everyday consumer products, including electronic equipment, and warnings can be seen posted throughout California in a variety of establishments such as buildings, hotels, restaurants, coffee shops, and stores.</p>
+
+      <h3>Why do you see the warning on our packaging and website?</h3>
+
+      <p>The warning is part of our ongoing effort to comply with the California Safe Drinking Water and Toxic Enforcement Act of 1986 (known as "Proposition 65").</p>
+
+      <h3>California Prop 65 Warning</h3>
+      
+      <p class="warning-california"><span>WARNING: Cancer and Reproductive Harm - </span><a href="http://www.P65Warnings.ca.gov" target="_blank">www.P65Warnings.ca.gov</a></p>
+
+    </div>
+
+    {%- if settings.product_social_share -%}
+      <div class="share for-mobile">
+        <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
+      </div>
+    {%- endif -%}
+  </div>
+</div>

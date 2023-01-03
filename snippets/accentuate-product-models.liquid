@@ -1,0 +1,68 @@
+<h3 class="tab-heading">Models</h3>
+
+<div class="container">
+  {% assign v_count = 0 %}
+  {% assign ind =0 %}
+  {% for variant in product.variants %} 
+    {% assign m_tmp = variant.metafields.CSV %}
+  
+    {% assign m_count = m_tmp.size %}
+
+    {% if m_count > v_count %}
+      {% assign v_count = m_count %}
+      {% assign ind = forloop.index %}
+    {% endif %}
+  {% endfor %}
+  
+  <table class="model_tables">
+    <thead>
+      <tr class="thead">
+        <th class="model"># MODEL</th>
+        
+        {% for variant in product.variants %} 
+          {% if forloop.index  == ind %}
+            {% assign m_tmp = variant.metafields.CSV %}
+
+            {% for metafield in m_tmp %}
+            {% assign key_type = metafield.first | replace: '_', ' ' %}
+              {% unless key_type == 'externalid' %}
+                <th class="{{metafield.first}}">
+                  {{ key_type | upcase }}
+                </th>
+              {% endunless %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        
+        <th class="price">PRICE</th>
+        <th class="action"></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% assign cnt = 0 %}
+      {% for variant in product.variants %}
+        {% assign m_sku = variant.sku %}
+      
+        {% assign cnt = 1 | minus: cnt %}
+        <tr class="{% if cnt == 1 %}odd{% else %}even{% endif%}">
+          <td class="model" data-title="MODEL:">{{m_sku}}</td>
+
+          {% assign m_tmp = variant.metafields.CSV %}
+          {% for metafield in m_tmp %}
+            {% assign key_type = metafield.first | replace: '_', ' ' %}
+            {% assign value_type = metafield.last %}
+            {% unless key_type == 'externalid' %}          
+            <td class="{{metafield.first}}" data-title="{{ metafield.first | replace: '_', ' ' | upcase }}">
+              {{ value_type | upcase }}
+            </td>
+            {% endunless %}
+          {% endfor %}
+            <td class="price" data-title="PRICE">{{variant.price | money }}</td>
+            <td class="action">{% if variant.available %}<form action="/cart/add" method="post" enctype="multipart/form-data"><input type="number" name="quantity" value="1"/><input name="id" value="{{variant.id}}" type="hidden"/> <input class="btn" type="submit" name="add" value="Add to Cart" /></form>{% else %}<a href="/apps/store-locator">Find Dealer</a>{% endif %}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

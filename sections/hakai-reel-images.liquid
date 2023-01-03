@@ -1,0 +1,26 @@
+<div class="shopify-section inspires-section mol" id="shopify-section-inspires-manifesto">
+	<div class="container inspires-section__inner inspires-manifesto__content" >
+	<div class="inspires-manifesto__text">
+    	{{ section.settings.image_1 | img_url: '2048x' | img_tag }}
+    </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"    
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,35 @@
+{%- if collection.image -%}
+    <div class="category-overview has-image clearfix">
+{%- else -%}
+  <div class="category-overview clearfix">
+{%- endif -%}
+      {%- if collection.image -%}<div class="for-desktop category-image" style="background-image: url('{{collection.image | img_url: 'master'}}');" title="{{collection.title | escape}}">
+        {% if collection.metafields.details.banner_link %}
+        <a href="{{collection.metafields.details.banner_link}}" target="_blank" class="full-link"></a>
+        {% endif %}
+      </div>{%- endif -%} 
+
+      {%- assign mobile_image = collection.image | img_url: 'master' -%}
+      {%- if collection.metafields.details.mobile_banner -%}
+        {%- assign mobile_image = collection.metafields.details.mobile_banner -%}
+      {%- endif -%} 
+      <div class="for-mobile category-image" style="background-image: url('{{mobile_image}}');min-height: 300px;" title="{{collection.title | escape}}">
+        <img src="{{mobile_image}}" width="100%" style="visibility: hidden;">
+        {% if collection.metafields.details.banner_link %}
+        <a href="{{collection.metafields.details.banner_link}}" target="_blank" class="full-link"></a>
+        {% endif %}
+      </div>
+
+
+    {% if collection.handle == 'soft-steel-premium-fishing-line' %}
+    {% else %}
+      <h1 class="category-title">Okuma <strong>{{collection.title}}</strong></h1>
+    {% endif %}
+    </div>
+
+
+<div id="content" class="container">
+  
+      {% section 'collection-template-bc-sf-filter' %}
+  
+</div>

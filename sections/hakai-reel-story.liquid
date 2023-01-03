@@ -1,0 +1,504 @@
+
+{% if section.settings.enabled %}
+<div class="container inspires-section__inner ">
+<!--   <div class="story">
+    <div class="video-width">
+      <div class="story__media header">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{section.settings.youtube_header_url.id}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+      
+    </div> -->
+ 
+
+  
+  
+  
+  
+	{% assign loop = 0 %}
+	{% for block in section.blocks %}
+		{% assign loop = loop | plus : 1 %}
+		{% assign oddeven = loop | modulo: 2 %}
+
+		{% assign class = '' %}
+		{% if oddeven == 0  %}
+			{% if section.settings.start_text_right %}
+				{% assign class = ' story--theme-right' %}
+			{% else %}
+				{% assign class = '' %}
+			{% endif %}
+		{% else %}
+			{% if section.settings.start_text_right %}
+				{% assign class = '' %}
+			{% else %}
+				{% assign class = ' story--theme-right' %}
+			{% endif %}
+		{% endif %}
+  
+  {%if section.settings.heading_top != ''%}
+  <div class="inspires-manifesto__text">
+  <h1>{{block.settings.heading_top}}</h1>
+  </div>
+  {%endif%}
+	
+	    <div class="story{{ class }}">
+             
+          
+	        <div class="story__textbox" style="background-color: {{ block.settings.bg__story }}; color: {{ block.settings.fc__story }};">
+              {%if block.settings.d_left == true%}
+	          	<div class="story__header left">  
+                  {%if block.settings.img__story__logo  %}
+                    <div class="story__logo">
+                      {% assign logo_img_url = block.settings.img__story__logo | img_url: 'master' %}
+                      <img src="{{logo_img_url}}" />
+                    </div>
+                    <h4 class="heading-text heading-text--h4 story__heading">
+                          {{block.settings.heading}}
+                     </h4>
+                  {%else%}
+                    <div class="story__logo d_none">
+                      {% assign logo_img_url = block.settings.img__story__logo | img_url: 'master' %}
+                      <img src="{{logo_img_url}}" />
+                    </div>
+                    <h4 class="heading-text heading-text--h4 story__heading w_100">
+                          {{block.settings.heading}}
+                     </h4>
+                  {%endif%}
+              </div>
+              {%else%}
+              <div class="story__header">  
+                <div class="story__logo">
+                  {% assign logo_img_url = block.settings.img__story__logo | img_url: 'master' %}
+                  <img src="{{logo_img_url }}" />
+                </div>
+              	<h4 class="heading-text heading-text--h4 story__heading">{{block.settings.heading}}</h4>
+              </div>
+              {%endif%}
+	            <div class="story__content">
+	            	{{ block.settings.text }}
+	            </div>
+	        </div>
+	        {% if block.settings.media_type == 'image' %}
+	        	{% assign desktop_image_url = block.settings.image_desktop | img_url: 'master' %}
+	        	{% assign mobile_image_url = block.settings.image_mobile | img_url: 'master' %}
+
+                <div class="video_width_container">
+
+<!--                       <div class="story__media for-desktop" style="background-image: url('{{ desktop_image_url }}');">
+                        <img class="story__photo" src="{{ desktop_image_url }}" />
+                      </div>
+
+                      <div class="story__media for-mobile" style="background-image: url('{{ mobile_image_url }}');">
+                          <img class="story__photo" src="{{ mobile_image_url }}" />
+                      </div> -->
+                  {%if block.settings.image_mobile%}
+                    <div class="img-container-with__mobile" style="background-image:url({{desktop_image_url}});">
+                      <img src="{{ desktop_image_url }}" />
+                    </div>
+
+                    <div class="img-container-with__mobile mobile" style="background-image:url({{mobile_image_url}});">
+                      <img src="{{ mobile_image_url }}" />
+                    </div>
+                  {%else%}
+                      <div class="img-container" style="background-image:url({{desktop_image_url}});">
+                            <img src="{{ desktop_image_url }}" />
+                      </div>
+                  {%endif%}
+                 </div>
+
+    
+
+		    {% else %}
+          		<div class="video_width_container">
+                  	<div class="story__media">
+			        	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ block.settings.youtube_url.id }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			    	</div>
+          		</div>
+			    
+	        {% endif %}
+	    </div>
+    {% endfor %}
+</div>
+
+<style type="text/css">
+  
+ 
+  
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+	}
+  .inspires-section__inner {
+    max-width: 1024px;
+	}
+  .d-flex{
+    display:flex;
+    flex-direction:row;
+  }
+  .justify-content-center{
+    justify-content:center;
+    align-content:center;
+  }
+  .story{
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 40px 0;
+    overflow: hidden;
+    display:flex;
+    flex-direction: row-reverse;
+    justify-content:center;
+    align-items:center;
+  }
+  .story--theme-right{
+    flex-direction:row;
+  }
+  .story--theme-right .story__textbox {
+/*     float: right; */
+    margin-right:-5px;
+    margin-left:0;
+  }
+  .story--theme-right .story__media {
+/*     left: 0;
+    right: calc(30% - 40px); */
+    margin-left:-5px;
+    margin-right:0;
+  }
+  
+  .story__textbox{
+  	position: relative;
+    z-index: 9;
+    width: 30%;
+    min-width:240px;
+    padding: 20px 30px;
+    margin-right:0;
+    margin-left:-2.5%;
+    box-shadow: 5px 10px 18px #000;
+  }
+  .video_width_container{
+    width:75%;
+  }
+  .img-container-with__mobile{
+    width:100%;
+    background-position:center; 
+    background-size:cover; 
+    background-repeat:no-repeat;
+    border:2px solid gray;
+  }
+  .img-container-with__mobile.mobile{
+    display:none;
+  }
+  .inspires-manifesto__text{
+    color:white; 
+  }
+  @media (max-width:900px){
+    .img-container-with__mobile{
+    	display:none
+    }
+  	.img-container-with__mobile.mobile{
+        display:block;
+        width:100%;
+        background-position:center; 
+        background-size:cover; 
+        background-repeat:no-repeat;
+  	}
+    .img-container-with__mobile.mobile img{
+      visibility:hidden;
+    }
+  }
+  .img-container{
+    width:100%;
+    background-position:center; 
+    background-size:cover; 
+    background-repeat:no-repeat;
+    border:2px solid gray;
+
+  }
+  .img-container img{
+    object-fit:cover;
+    width:100%;
+    visibility:hidden;
+  }
+
+  .story__media{
+  	position: relative;
+    width:100%;
+    height:0;
+    padding-bottom: 56.25%;
+    z-index: 8;
+    top: 0;
+/*     left: calc(30% - 40px); */
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left:0px;
+    margin-right:-2.5%;
+    border: solid 1px;
+  }
+  .video-width{
+    width:100%;
+  }
+  .story__media.header{
+    position: relative;
+    width:100%;
+    height:0;
+    padding-bottom: 56.25%;
+  }
+  .story__media iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   }
+  .story__header{
+    display:flex;
+    justify-content:space-between;
+    flex-direction: column;
+    width:100%;
+  }
+  .story__header.left{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-direction: row;
+    width:100%;
+    
+    
+  }
+
+    .story__header.left .story__logo{
+      width:30%;
+      display:flex;
+
+    }
+    .d_none{
+      display:none!important;
+
+    }
+    .w_100{
+      width:100%!important;
+    }
+    .story__header.left h4{
+      width:70%;
+    }
+
+  .story__header.left .story__logo img{
+    width:100%;
+    object-fit:contain;
+  }
+    .story__header .story__logo{
+    max-width:100%;
+  }
+  .story__header .story__logo img{
+    width:100%;
+    object-fit:contain;
+  }
+    .story__textbox {
+      {%comment %}
+        {% for block in section.blocks %}
+            {% capture background_color %}{{ block.settings.bg__story }}{% endcapture %}
+                background-color: {{ background_color }};
+        {% endfor %}
+          {% if section.settings.text_color %}
+            color: {{section.settings.text_color}};
+        {% endif %}
+      {%endcomment%}
+    }
+    .story__textbox .story__heading {
+        {% if section.settings.heading_color %}
+            color: {{section.settings.heading_color}};
+        {% endif %}
+    }
+	.story__textbox a {
+		{% if section.settings.link_color %}
+			color: {{section.settings.link_color}};
+		{% endif %}
+	}
+  
+  
+  
+   @media (max-width:900px){
+      .story{
+        flex-direction:column-reverse;
+      
+    }
+    .story--theme-right{
+      flex-direction:column-reverse;
+    }
+    .story--theme-right .story__textbox {
+  /*     float: right; */
+      margin-right:0px;
+      margin-left:0;
+    }
+    .story--theme-right .story__media {
+
+      margin-left:0px;
+      margin-right:0;
+    }
+
+    .story__textbox{
+      position: relative;
+      z-index: 9;
+      width: 100%;
+      min-height: 300px;
+      min-width:240px;
+      padding: 20px 30px;
+      margin-right:0;
+      margin-left:0px;
+    }
+    .video-width{
+      width:100%;
+  	}
+    .video_width_container{
+    	width:100%;
+  	}
+    .story__media{
+      width:100%;
+      margin-left:0px;
+      margin-right:0px;
+    }
+     .story__media.header{
+       width:100%;
+  }
+  
+</style>
+
+{% endif %}
+{% schema %}
+  {
+    "name": "Story with Image or video",
+	"class": "inspires-section",
+    "settings": [
+		
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "checkbox",
+          "id": "start_text_right",
+          "label": "Start Text On Right First",
+          "default": false
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#616161"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        },
+		{
+          "type": "color",
+          "id": "link_color",
+          "label": "Link Color",
+          "default": "#a58a52"
+        },
+        {
+        "type": "video_url",
+        "id": "youtube_header_url",
+        "label": "Header youtube video",
+        "accept": [
+        "youtube",
+        "vimeo"
+        ]
+        }
+	],
+  
+	"blocks": [
+	    {
+	        "type": "text",
+	        "name": "Story",
+	        "settings": [
+{
+        "type": "text",
+        "id": "heading_top",
+        "label": "Heading top"
+        },
+		        {
+		        	"type": "text",
+		        	"id": "heading",
+		        	"label": "Heading"
+		        },
+		        {
+		        	"type": "richtext",
+		        	"id": "text",
+		        	"label": "Text"
+		        },
+                {
+                  "type": "color",
+                  "id": "bg__story",
+                  "label": "Background",
+                  "default": "#13294b"
+                },
+				{
+                  "type": "color",
+                  "id": "fc__story",
+                  "label": "Font color",
+                  "default": "#fff"
+                },
+				{
+		        	"type": "image_picker",
+		        	"id": "img__story__logo",
+		        	"label": "Add logo",
+		        	"info": "Logo header section"
+		        },
+                {
+                  "type": "checkbox",
+                  "id": "d_left",
+                  "label": "Align logo inline to left",
+                  "default": true
+                },
+		        {
+		        	"type": "radio",
+		        	"id": "media_type",
+		        	"label": "Media Type",
+		        	"options": [
+			        	{ "value": "image", "label": "Image" },
+			        	{ "value": "video", "label": "Youtube Video" }
+		        	],
+		        	"default": "video",
+		        	"info": "Media type is video or image"
+		        },
+		        {
+		        	"type": "image_picker",
+		        	"id": "image_desktop",
+		        	"label": "Desktop Image",
+		        	"info": "Image for desktop view"
+		        },
+		        {
+		        	"type": "image_picker",
+		        	"id": "image_mobile",
+		        	"label": "Mobile Image",
+		        	"info": "Image for mobile view"
+		        },
+                {
+                  "type": "video_url",
+                  "id": "youtube_url",
+                  "label": "Youtube video",
+                  "accept": [
+                    "youtube",
+                    "vimeo"
+                  ]
+                }
+	        ]
+	    }
+	]
+  }
+{% endschema %}

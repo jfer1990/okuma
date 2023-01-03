@@ -1,0 +1,27 @@
+{%- capture copyright_custom -%}Copyright &copy; {{'now' | date: '%Y'}} {{shop.name}}. All Rights Reserved.{%- endcapture -%}
+<div id="footer-copyright" class="col-xs-12{%- if section.settings.visible_on_mobile == false -%}{{" hidden-xs"}}{%- endif-%}" data-section-id="{{ section.id }}" data-section-type="footer-copyright">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6"><span>{{section.settings.copyright_custom | default:copyright_custom}}</span></div>
+    <div class="col-xs-12 col-sm-6"><a class="kaf-logo" href="https://keepamericafishing.org/" target="_blank"><img src= "https://cdn.shopify.com/s/files/1/2551/7764/files/GD.gif?9100728145880716693"><img src="{{ 'kaf_logo.png' | asset_url }}"></a></div>
+  </div>
+  <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=WmzsLWBTJYcpgzANDtkwDJfRChXdrDbYTdYqZUlQXeJlwKN1EUoIb3e2lQN8"></script></span>
+</div>
+
+{% schema %}
+  {
+    "name": "Footer Copyright",
+	  "class": "index-section section-wrapper copyright row",
+    "settings": [
+  		{
+  		  "type": "header",
+            "content": "General"
+  		},
+      {
+        "type": "textarea",
+        "id": "copyright_custom",
+        "label": "Content",
+	      "default": "Copyright © 2017, Your Store. All Rights Reserved."
+      }
+	  ]
+  }
+{% endschema %}

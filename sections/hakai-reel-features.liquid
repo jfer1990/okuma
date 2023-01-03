@@ -1,0 +1,105 @@
+<style>
+  .text-center{
+    text-align:center!important; 
+  }
+  .featured__text h2 {
+        font-size: 50px;
+    text-align: left;
+    font-family: 'Barlow Semi Condensed';
+    font-weight: bold;
+    text-decoration: underline solid #0bccd1 10px;
+    text-underline-offset: .25em;
+    margin-bottom: 30px;
+	}
+  .featured__text p {
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 30px;
+    line-height: 1.65em;
+   }
+  .featured__text.gray-box {
+    background-color: {{section.settings.bg_color}};
+    width:100%;
+    margin: 50px auto;
+    padding: 50px;
+	}
+  ul.dash {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1.5em;
+  }
+  ul.dash > li:before {
+      display: inline-block;
+      content: "-";
+      width: 1em;
+      margin-left: -1em;
+  }
+  li{font-size:20px;}
+  @media (max-width:900px){
+    .featured__text.gray-box {
+      width:100%;
+    }
+  }
+ 
+</style>
+
+{% if section.settings.enabled %}
+<div class="shopify-section inspires-section__inner featured-section mol" id="shopify-section-featured">
+	<div class="container featured-section__inner featured__content" >
+	<div class="featured__text gray-box">
+        <h2 class="text-center" style="color:{{ section.settings.text_color }}">{{ section.settings.title }}</h2>
+    	{{section.settings.content}}
+    </div>
+</div>
+</div>
+  <style type="text/css">
+	#shopify-section-featured {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		{% if section.settings.text_color %}
+			color: {{section.settings.text_color}};
+		{% endif %}
+      margin-right:auto; 
+      margin-left:auto; 
+	}
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Feature Section",
+	"class": "featured-section",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+		{
+          "type": "textarea",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#000"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        }
+	]
+  }
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}

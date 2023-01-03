@@ -1,0 +1,63 @@
+<div class="product-overview-gradient-bg"></div>          
+<div class="container">
+  <div class="product-overview-okuma-bg" style="display: none"><img src="{{'okuma_product_bg.png' | asset_url}}" /></div>
+       
+  <div id="quickview_product">
+    {%- comment -%} SIDEBAR LEFT {%- endcomment -%}
+    {%- if settings.product_design ==  'sidebar' and settings.product_sidebar == "left" and section.blocks.size > 0 -%}
+    {%- include "product-sidebar" -%}
+    {%- endif -%}
+
+    <div class="product-cat for-mobile">{{product.metafields.pdetail.subcat_code}}</div>
+    <h2 class="name {%- if settings.product_hide_breadcrumb == false -%}{{" hidden"}}{%- endif %} for-mobile">{{product.title}}</h2>
+
+    {%- comment -%} MAIN CONTENT {%- endcomment -%}
+    <div class="col-md-{%- if settings.product_design !=  'full-screen' and settings.product_design !=  'carousel' -%}{%- if settings.product_design ==  'sidebar' and settings.product_sidebar != '' and section.blocks.size > 0 -%}{{-"4 " -}}{%- else -%}{%- if settings.product_design == "left" or settings.product_design == "bottom" -%}{{- settings.product_img_width -}}{%- else -%}7{%- endif -%}{{-" " -}}{%- endif -%}{%-  else -%}{{- "12 " -}}{%- endif -%} col-sm-12 col-xs-12 product-images-wrapper">
+      <div id="product-images-content-{{section.id}}" class="for-desktop product-images-content{{- " design-thumbnail-" | append: settings.product_design -}}">
+        <div class="rt-fastor-product-gallery rt-fastor-product-gallery--with-images images fastor-images" >
+          {%- if settings.product_design != "scroll" -%}
+          {%- include "product-images-slide" -%}
+          {%- else -%}
+          {%- include "product-images-scroll" -%}
+          {%- endif -%}
+        </div>
+        {%- if instructions.video != blank or roar360.roar360view_enabled == '1' -%}
+        {%- include "product-feature" -%}
+        {%- endif -%}
+        {%- if settings.product_design == "left" or settings.product_design == "bottom" or settings.product_design == "full-screen" or settings.product_design ==  'sidebar' -%}
+        {%- include 'product-thumbnails-nav' -%}
+        {%- endif -%}
+        {%- if settings.product_design == 'gallery' -%}
+        {%- include 'product-thumbnails-gallery' -%}
+        {%- endif -%}
+      </div>
+      <div id="gallery-mobile" class="for-mobile">
+        <div class="rt-fastor-product-gallery rt-fastor-product-gallery--with-images images fastor-images" >
+          {%- include "product-images-scroll" -%}
+        </div>
+      </div>
+    </div>
+    {%- if settings.product_design !=  'full-screen' and settings.product_design !=  'carousel' -%}
+    <div class="col-md-{%- if settings.product_design == "left" or settings.product_design == "bottom" -%}{{- 12 | minus: settings.product_img_width -}}{%- else -%}5{%- endif -%}{{- " " -}}{%- if settings.product_design ==  'sidebar' and settings.product_sidebar != '' and section.blocks.size > 0 -%}{%- else -%}{{ " " -}}{%- endif -%} col-sm-12 col-xs-12 product-summary">
+      <div class="summary entry-summary">
+        {%- if settings.product_design == "scroll" -%}
+        <div class="fastor-scroll-content">
+          {%- endif -%}
+          {%- include "product-page-info" -%}
+          {%- if settings.product_design == "scroll" -%}
+        </div>
+        {%- endif -%}
+        {%- if settings.product_design == "compact" -%}
+        {%- include "product-accordions" -%}
+        {%- endif -%}
+      </div>
+    </div>
+    {%- endif -%}
+    {%- comment -%} SIDEBAR RIGHT {%- endcomment -%}
+    {%- if settings.product_design ==  'sidebar' and settings.product_sidebar == "right" and section.blocks.size > 0 -%}
+    {%- include "product-sidebar" -%}
+    {%- endif -%}
+
+    
+  </div>
+</div>

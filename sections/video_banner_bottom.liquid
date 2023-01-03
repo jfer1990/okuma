@@ -1,0 +1,164 @@
+<style>
+  .section-video-banner-bottom .video-host{
+    width:{{section.settings.width_video}}%;
+  }
+  .section-video-banner-bottom .iframe-container{
+    position:relative; 
+    padding-top: 56.25%;
+    width: 100%; 
+  }
+  .section-video-banner-bottom #player3{
+    width:100%; 
+    height:100%; 
+    position:absolute; 
+    top:0; 
+    left:0; 
+  }
+  .section-video-banner-bottom{
+    margin-top:{{section.settings.marginTop}}rem;
+    margin-bottom:{{section.settings.marginBottom}}rem;
+    
+  }
+  .align-items-center{
+    align-items:center!important; 
+  }
+  .flex-column{
+    flex-direction:column!important; 
+  }
+  .section-video-banner-bottom .text-section h2{
+    font-size:3em; 
+    
+  }
+  .section-video-banner-bottom .text-section{
+    color:white!Important; 
+    font-size:18px; 
+  }
+  .text-section p{
+    text-align:center; 
+  }
+</style>
+
+
+<section class="section-video-banner-bottom">
+  
+  <div {%if section.settings.div_container%}class="d-flex justify-content-center align-items-center flex-column container " style="max-width:1024px"{%else%}class="d-flex justify-content-center align-items-center flex-column" {%endif%}>
+  {%if section.settings.tittle_text!= '' or section.settings.paragraph!='' %}
+    <div class="inspires-manifesto__text text-section" style="margin-bottom:2rem">
+      <h1 class="text-center">{{section.settings.title_text}}</h1>
+      {{section.settings.paragraph}}
+    </div>
+  {%endif%}
+
+    <div class="video-host">
+      <div class="iframe-container" data-video-id='{{section.settings.video_url.id }}' data-player-config='
+           { 
+           "autoplay": {% if section.settings.autoplay %} 1 {%else%} 0 {%endif%}, 
+           "controls": {% if section.settings.controllers %} 1 {%else%} 0 {%endif%} , 
+           "loop":	{% if section.settings.loop %} 1 {%else%} 0 {%endif%}
+           }
+           '>
+        <div id="player3"></div>
+      </div>
+    </div>
+    {%if section.settings.paragraph_bottom != '' %}
+	<div class="text-section" style="margin-top:2rem">
+      {{section.settings.paragraph_bottom}}
+    </div>
+    {%endif%}
+  </div>
+
+</section>
+
+
+{% schema %}
+  {
+    "name": "Video Banner",
+    "settings": [
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL",
+      "accept": [
+        "youtube"
+      ]
+    },
+
+                 {
+  "type": "text",
+  "id": "title_text",
+  "label": "Title Text"
+},
+               {
+  "type": "richtext",
+  "id": "paragraph",
+  "label": "Text"
+},
+                 {
+  "type": "richtext",
+  "id": "paragraph_bottom",
+  "label": "Bottom Text"
+},
+    {
+      "type": "range",
+      "id": "marginTop",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "rem",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "marginBottom",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "rem",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "div_container",
+      "label": "Video with box container",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay Video",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop Video",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "controllers",
+      "label": "Controllers in Video",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "width_video",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Video Width",
+      "default": 50
+    }
+]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,88 @@
+<div class="container">
+  <h2 class="section-heading">{{ section.settings.heading_text }} </h2>
+  <h4>{{ section.settings.sub_heading_text }}</h4>
+  <form action="/apps/store-locator" method="GET" class="find-dealer-form">
+    <div class="row search-fields">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input name="zip" type="text" placeholder="Zip Code" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group select">
+          <select name="limit">
+            <option value="" selected disabled>Radius</option>
+            {%- for block in section.blocks limit: section.block.size -%}
+              <option value="{{ block.settings.option_value }}">{{ block.settings.option_text }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn">{{ section.settings.button_text }}</button>
+    </div>
+  </form>
+</div>
+
+{% schema %}
+{
+  "name": "Okuma Find Dealer",
+  "class": "index-section section-wrapper okuma-find-dealer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "visible_on_mobile",
+      "label": "Show on Mobile",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "FIND A DEALER"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading_text",
+      "label": "Sub Heading Text",
+      "default": "Easy to find Authorised Okuma Dealer near you (in USA)."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "FIND A DEALER"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Radious",
+      "settings": [
+        {
+          "type": "text",
+          "id": "option_text",
+          "label": "Option Text",
+          "default": "Radious Option Text"
+        },
+        {
+          "type": "text",
+          "id": "option_value",
+          "label": "Option Value",
+          "default": "radious_option_value"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Okuma Find Dealer",
+      "category": "Olibro Design",
+      "settings": {
+        "visible_on_mobile": true
+      }
+    }
+  ]
+}
+{% endschema %}

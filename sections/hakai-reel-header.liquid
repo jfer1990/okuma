@@ -1,0 +1,89 @@
+{% if section.settings.enabled %}
+<div class="shopify-section inspires-section mol" id="shopify-section-inspires-header">
+<div class="">
+    <div class="logo">
+    	{% if section.settings.site_url %}
+    		{% assign shop_url = section.settings.site_url %}
+    	{% else %}
+    		{% assign shop_url = shop.url %}
+    	{% endif %}
+    	{% if section.settings.logo %}
+    		{% assign logo_url = section.settings.logo | img_url: 'master' %}
+    	{% else %}
+    		{% assign logo_url = 'logo-white.png' | asset_url %}
+    	{% endif %}
+      <a href="{{shop_url}}" title="{{ shop.name | escape }}">
+        <img src="{{ logo_url }}" title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+      </a>
+    </div>
+    
+</div>
+</div>
+<style type="text/css">
+	#shopify-section-inspires-header {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		color: {{section.settings.text_color}};
+/* 		min-height: {{section.settings.height}}px; */
+	}
+  .logo {
+    margin: auto 0;
+    text-align: center;
+	}
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "WIP Key Visual",
+	"class": "inspires-section",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+		{
+          "type": "text",
+          "id": "site_url",
+          "label": "Site Url",
+          "default": "https://okumafishingusa.com/"
+        },
+		{
+          "type": "text",
+          "id": "page_heading",
+          "label": "Page Heading",
+          "default": "What Inspires You?"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#494949"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        },
+		{
+          "type":      "range",
+          "id":        "height",
+          "min":       100,
+          "max":        1000,
+          "step":       10,
+          "unit":       "px",
+          "label":     "Height",
+          "default":   480
+        }
+	]
+  }
+{% endschema %}

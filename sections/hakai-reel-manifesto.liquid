@@ -1,0 +1,73 @@
+<style>
+  .inspires-manifesto__text h1 {
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Barlow Semi Condensed';
+    font-weight: bold;
+	}
+  .inspires-manifesto__text p {
+    font-size: 18px;
+    text-align: center;
+    padding: 0px 12%;
+    margin-bottom: 30px;
+	}
+</style>
+
+{% if section.settings.enabled %}
+<div class="shopify-section inspires-section mol" id="shopify-section-inspires-manifesto">
+	<div class="container inspires-section__inner inspires-manifesto__content" >
+	<div class="inspires-manifesto__text">
+        <h1 style="color:{{ section.settings.text_color }}">{{ section.settings.title }}</h1>
+    	{{section.settings.content}}
+    </div>
+</div>
+</div>
+  <style type="text/css">
+	#shopify-section-inspires-manifesto {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		{% if section.settings.text_color %}
+			color: {{section.settings.text_color}};
+		{% endif %}
+	}
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Inspiration manifesto",
+	"class": "inspires-section",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#000"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        }
+	]
+  }
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}

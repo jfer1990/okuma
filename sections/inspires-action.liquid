@@ -1,0 +1,91 @@
+{% if section.settings.enabled %}
+{% if section.settings.facebook_logo %}
+	{% assign facebook_logo = section.settings.facebook_logo | img_url: 'master' %}
+{% else %}
+	{% assign facebook_logo = 'logo_facebook.png' | asset_url %}
+{% endif %}
+{% if section.settings.instagram_logo %}
+	{% assign instagram_logo = section.settings.instagram_logo | img_url: 'master' %}
+{% else %}
+	{% assign instagram_logo = 'logo_instagram.png' | asset_url %}
+{% endif %}
+<div class="container inspires-section__inner">
+    <h3 class="heading-text heading-text--h3 inspires-action__heading">{{ section.settings.heading }}</h3>
+    <div class="inspires-action__content">
+    	{{section.settings.content}}
+    </div>
+    <div class="inspires-action__buttons">
+        <a class="inspires-action__button" href="{{ section.settings.facebook_url }}"><img class="inspires-action__logo" src="{{ facebook_logo }}" /></a>
+        <a class="inspires-action__button" href="{{ section.settings.instagram_url }}"><img class="inspires-action__logo" src="{{ instagram_logo }}" /></a>
+    </div>
+</div>
+<style type="text/css">
+	#shopify-section-inspires-action {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		{% if section.settings.text_color %}
+			color: {{section.settings.text_color}};
+		{% endif %}
+	}
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Call to action",
+	"class": "inspires-section",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "AND YOU, WHAT INSPIRES YOU?"
+        },
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+		{
+          "type": "image_picker",
+          "id": "facebook_logo",
+          "label": "Facebook Logo"
+        },
+		{
+          "type": "text",
+          "id": "facebook_url",
+          "label": "Facebook Url",
+          "default": "#"
+        },
+		{
+          "type": "image_picker",
+          "id": "instagram_logo",
+          "label": "Instagram Logo"
+        },
+		{
+          "type": "text",
+          "id": "instagram_url",
+          "label": "Instagram Url",
+          "default": "#"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#f2f2f2"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#333"
+        }
+	]
+  }
+{% endschema %}

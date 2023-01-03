@@ -1,0 +1,208 @@
+<style>
+.back-to {
+  text-align: center;
+  border: 2px solid #000;
+  color: #000;
+  font-size: 13.23px;
+  font-weight: 700;
+  width: 260px;
+  padding: 15px;
+  margin: 0 auto;
+  transition: all 0.5s;
+  display: block;
+  text-transform: uppercase;
+}
+.breadcrumb{
+  display:none;
+}
+.back-to:hover {
+  color: #fff;
+  background: #000;
+}
+.rte {
+  color: #000 !important;
+}
+p{
+  margin:20px 0;
+}
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.grid-item {
+  float: left;
+  padding-left: 30px;
+  vertical-align: top;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.grid,
+.grid--rev,
+.grid--full,
+.grid-uniform {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: -30px;
+}
+.section-header {
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 25px;
+  margin-bottom: 30px;
+}
+.main-content h1,
+.main-content h2 {
+  color: #000;
+  font-weight: 900;
+}
+h2 {
+  color: #000;
+  font-size: 28px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.left {
+  float: left !important;
+}
+.right {
+  float: right !important;
+}
+@media screen and (min-width: 481px) {
+  .wrapper {
+    padding: 0 30px;
+  }
+}
+@media screen and (min-width: 769px) {
+  .section-header--left {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+  }
+  .wrapper {
+    padding: 0;
+  }
+  .large--one-whole {
+    width: 100%;
+  }
+  .section-header {
+    display: table;
+    width: 100%;
+  }
+  .section-header--left h1 {
+    margin-bottom: 0px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    padding-top: 85px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .back-to {
+    width: 100%;
+  }
+  p.clearfix {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  p.clearfix img {
+    width: 20px;
+  }
+  p.clearfix span.right {
+    padding-left: 15px;
+  }
+  p.clearfix span.left {
+    padding-right: 15px;
+  }
+  p.clearfix span.right {
+    margin: 0 !important;
+  }
+}
+
+</style>
+
+<div class="grid grid-border">
+  <div class="wrapper">
+    <div class="grid-item large--one-whole">
+      <div class="grid">
+        <div class="grid-item large--one-whole">
+          <header class="section-header">
+            <div class="section-header--left">
+              <h1>{{article.title}}</h1>
+              <p class=" "></p>
+              <p class=" ">
+                Posted on
+                <strong
+                  ><strong
+                    >{{article.published_at | date: "%b %d, %Y"}}</strong
+                  ></strong
+                >
+              </p>
+              <p></p>
+            </div>
+          </header>
+          <div class="rte">
+            <h2>By {{article.author}}</h2>
+            {%- if article.image -%}
+            <div class="post-media">
+              <img alt="{{article.title | escape}}" src="{{article.image.src | img_url: 'master'}}" />
+            </div>
+            {%- endif -%}
+            <p>
+              {{article.content}}
+            </p>
+          </div>
+
+          <p class="clearfix" style="margin-top:60px">
+            {% unless blog.previous_article == blank %} 
+            <span class="left">
+              <a
+                style="display: flex; align-items: center"
+                href="{{blog.previous_article}}"
+              >
+                <img
+                  src="//cdn.shopify.com/s/files/1/0060/3770/0678/t/64/assets/arrow-prev_30x.png?v=14414415582596671696"
+                /><span>Prev</span>
+              </a>
+            </span>
+            {% endunless %}
+
+            <span style="text-align: center; display: block">
+              <a class="back-to" href="{{blog.url}}">
+                <span>Back to {{blog.title}}</span>
+              </a>
+            </span>
+			
+            {% unless blog.next_article == blank %} 
+            <span class="right" style="margin-top: -55px">
+              <a
+                style="display: flex; align-items: center"
+                href="{{blog.next_article}}"
+              >
+                <span>Next</span>
+                <img
+                  src="//cdn.shopify.com/s/files/1/0060/3770/0678/t/64/assets/arrow-next_30x.png?v=13791888851348262763"
+                />
+              </a>
+            </span>
+            {% endunless %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

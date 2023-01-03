@@ -1,0 +1,117 @@
+{% if template == 'index' %}
+<div class="gray-overlay hidden-desktop"></div>
+<div class="container-fluid">
+{% if section.settings.heading_text != '' %}
+    <h2>{{ section.settings.heading_text }}</h2>
+{% endif %}
+  <div class="row">
+    <div class="okuma-arrows">
+      <a href="#" class="prev-arrow"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+      <hr/>
+      <a href="#" class="next-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="okuma-slider">
+      {%- for block in section.blocks limit: section.blocks.size -%} 
+        <div class="slide">
+            {% comment %}<div class="col-md-6 slide-photo" style="background-image: url('{{ block.settings.slide_img | img_url : 'master' }}');">
+              <img src="{{ block.settings.slide_img | img_url : 'master' }}" />
+            </div>{% endcomment %}
+          <div class="col-md-6 slide-photo">
+              <img src="{{ block.settings.slide_img | img_url : 'master' }}" />
+            </div>
+            <div class="col-md-6 slide-text">
+              <div class="slide-text-inner">
+                <h3>{{ block.settings.slide_heading }}</h3>
+                {{ block.settings.slide_text }}
+                {% if block.settings.slide_button_text != '' %}
+                <a href="{{ block.settings.slide_button_link }}" class="btn"><span>{{ block.settings.slide_button_text }}</span></a>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+      {%- endfor -%}      
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Okuma Pro Stuff",
+  "class": "okuma-pro-stuff",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enabled",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "*** General:"
+        },
+        {
+          "type": "image_picker",
+          "id": "slide_img",
+          "label": "Pick an Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_heading",
+          "label": "Slide Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "slide_text",
+          "label": "Slide Text"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_text",
+          "label": "Slide Button Text",
+          "default": "Shopping Now"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_link",
+          "label": "Slide Button Link",
+          "default": "#"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Okuma Pro Stuff",
+      "category": "Olibro Design",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "slide_heading": "Heading Text",
+            "slide_button_text": "Shop Now",
+            "slide_button_link": "#"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

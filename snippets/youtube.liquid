@@ -1,0 +1,51 @@
+<script>
+  var tag = document.createElement('script');
+
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+    // Init empty array of iframe IDs, one from each video
+var iframes = [];
+
+  
+  
+  let videoContainers = document.getElementsByClassName('iframe-container'); 
+  for(videoContainer of videoContainers){
+    let config = JSON.parse(videoContainer.getAttribute('data-player-config')); 
+    let id = videoContainer.querySelector('div').id; 
+    let videoID = videoContainer.getAttribute('data-video-id'); 
+    console.log(videoID); 
+    let iframe = {'id':id,'config':config, 'videoID':videoID}; 
+    console.log(iframe); 
+    iframes.push(iframe); 
+    
+
+  }
+  
+  
+
+  
+  
+  function onYouTubeIframeAPIReady() {
+	iframes.forEach(function(iframe) {
+		var player = new YT.Player(iframe.id, {
+          videoId: iframe.videoID,
+          playerVars:iframe.config,
+			events: {
+				onReady: onPlayerReady
+			}
+		});
+	});
+}
+  
+  function onPlayerReady(event) {
+         if(true){
+//          	event.target.playVideo();
+        }
+      }
+
+
+
+
+</script>

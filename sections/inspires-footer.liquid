@@ -1,0 +1,93 @@
+{% if section.settings.enabled %}
+<div class="container inspires-section__inner footer__inner">
+    <a class="footer__button" href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+    <div class="footer__copyright">{{ section.settings.copyright }}</div>
+</div>
+<style type="text/css">
+	#shopify-section-inspires-footer {
+		{% if section.settings.bg_color %}
+			background-color: {{section.settings.bg_color}};
+		{% endif %}
+		{% if section.settings.text_color %}
+			color: {{section.settings.text_color}};
+		{% endif %}
+	}
+	.footer__button {
+		{% if section.settings.button_bg_color %}
+			background-color: {{section.settings.button_bg_color}};
+		{% endif %}
+		{% if section.settings.button_text_color %}
+			color: {{section.settings.button_text_color}};
+		{% endif %}
+		{% if section.settings.button_radius %}
+			border-radius: {{section.settings.button_radius}}px;
+		{% endif %}
+	}
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Link back to Okuma",
+	"class": "inspires-section footer",
+    "settings": [
+    	{
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enabled?",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Return to Okuma's main website"
+        },
+		{
+          "type": "text",
+          "id": "button_link",
+          "label": "Button Link",
+          "default": "https://okumafishingusa.com"
+        },
+		{
+          "type": "text",
+          "id": "copyright",
+          "label": "Copyright Text",
+          "default": "Okuma @2018"
+        },
+		{
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#515151"
+        },
+		{
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#fff"
+        },
+		{
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color",
+          "default": "#838383"
+        },
+		{
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#fff"
+        },
+		{
+          "type":      "range",
+          "id":        "button_radius",
+          "min":       0,
+          "max":        100,
+          "step":       1,
+          "unit":       "px",
+          "label":     "Button Border Radius",
+          "default":   0
+        }
+	]
+  }
+{% endschema %}

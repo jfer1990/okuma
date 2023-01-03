@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="product-related">
+    <h3>{{settings.product_bottom_related_heading}}</h3>
+      <div class="tab-content" id="product-related">
+          <div class="box-product">
+            <div id="myCarouselRelatedx" class="product-grid">
+              <div class="carousel-inner">
+                {%- if collection == null -%}
+                {%- assign my_collection_found = false -%}
+                {%- for my_collection in product.collections -%}
+                {%- if my_collection_found == false and my_collection.all_products_count > 1 -%}
+                {%- assign my_collection_found = true -%}
+                {%- assign collection = my_collection -%}
+                {%- endif -%}
+                {%- endfor -%}
+                {%- endif -%}
+
+                {%- assign my_limit = settings.product_bottom_related_limit | plus:1 -%}
+                {%- assign my_product = product -%}
+                {%- assign my_product_found = false -%}
+                
+                {%- for product in collection.products limit: 5 -%}
+                {%- if product.handle == my_product.handle -%}
+                {%- assign my_product_found = true -%}
+                {%- else -%}
+                {%- unless my_product_found == false and forloop.last -%}
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  {%- include 'product-item' -%}
+                </div>
+                {%- endunless -%}
+                {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

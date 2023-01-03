@@ -1,0 +1,251 @@
+<style>
+  .section-video-header .video-host{
+    width:{{section.settings.width_video}}%;
+  }
+  .section-video-header .iframe-container{
+    position:relative; 
+    padding-top: 56.25%;
+    width: 100%; 
+/*     height:{{section.settings.header_height}}vh; */
+  }
+  .section-video-header #playerHeader{
+    width:100%; 
+    height:100%; 
+    position:absolute; 
+    top:0; 
+    left:0%; 
+  }
+  .section-video-banner{
+    margin-top:{{section.settings.marginTop}}rem;
+    margin-bottom:{{section.settings.marginBottom}}rem;
+    
+  }
+  #iframe-layout{
+    position:absolute; 
+    width:100%; 
+    height:100%; 
+    background:rgba(0, 0, 0, {{section.settings.layout_opacity | divided_by:100.0 }});
+/*     opacity: 0.5; */
+    top:0; 
+    left:0; 
+  }
+  .header-text{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-text h1{
+    font-size:5em; 
+    color:white; 
+    font-weight:bolder; 
+  }
+  #img-header-container{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width:992px){
+    .section-video-header .iframe-container{
+      position:relative; 
+      padding-top: 56.25%; 
+      height:auto;
+
+  	}
+  }
+  @media(min-width:769px){
+      #img-header-container{
+        display:none; 
+      }
+    }
+    
+   	@media(max-width:768px){
+      {%if section.settings.image_header %}
+        #playerHeader{
+          display:none; 
+        }
+      {%else%}
+      
+      {%endif%}
+    }
+</style>
+
+
+<section class="section-video-header">
+  <div {%if section.settings.div_container%} class="container d-flex justify-content-center"{%else%}class="d-flex justify-content-center"{%endif%}>
+    <div class="video-host d-flex justify-content-center">
+      <div class="iframe-container" data-video-id='{{section.settings.video_url.id }}' data-player-config='
+           { 
+           "autoplay": {% if section.settings.autoplay %} 1 {%else%} 0 {%endif%}, 
+           "controls": {% if section.settings.controllers %} 1 {%else%} 0 {%endif%} , 
+           {%if section.settings.loop%}
+           "playlist":{{section.settings.video_url.id | json}},
+           {%endif%}    
+           "loop":	{% if section.settings.loop %} 1 {%else%} 0 {%endif%},
+           "mute": {% if section.settings.muted%} 1 {%else%} 0 {%endif%}
+           }
+           '>
+        <div id="playerHeader"></div>
+        {%if section.settings.image_header %}
+          <div id="img-header-container">
+              <img src="{{ section.settings.mobile_img | img_url: "master" }}">
+          </div>
+        {%endif%}
+        <div id="iframe-layout">
+          <div class="header-text">
+<!--           	<h1 class="h1 text-center">ARE YOU READY?</h1> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+                                      
+                                      
+{%comment%}
+                                      <section class="section-video-header">
+  <div {%if section.settings.div_container%} class="container d-flex justify-content-center"{%endif%}>
+    <div class="video-host container d-flex justify-content-center"">
+      <div class="iframe-container">
+        <iframe  width="420" height="315"
+        	src="https://www.youtube.com/embed/{{section.settings.video_url.id}}?controls=0&autoplay={% if section.settings.autoplay %}1{%else%}0{%endif%}{%if section.settings.loop%}&playlist={{section.settings.video_url.id}}{%endif%}&loop={% if section.settings.loop %}1{%else%}0{%endif%}">
+             allow="autoplay"
+        </iframe>
+        <div id="iframe-layout">
+          <div class="header-text">
+          	<h1 class="h1 text-center">ARE YOU READY?</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section> 
+{%endcomment%}
+
+
+{% schema %}
+  {
+    "name": "Video Header",
+    "settings": [
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL",
+      "accept": [
+        "youtube"
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_img",
+      "label": "Image for mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_header",
+      "label": "On mobile switch to Image Header",
+      "default": true
+    },
+                                 
+    {
+      "type": "range",
+      "id": "header_height",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "vh",
+      "label": "Header Height",
+      "default": 70
+    },
+               
+    {
+      "type": "range",
+      "id": "width_video",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Video Width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "layout_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Layout Opacity",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "marginTop",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "rem",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "marginBottom",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "rem",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "div_container",
+      "label": "Video with box container",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay Video",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop Video",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "controllers",
+      "label": "Controllers in Video",
+      "default": true
+    },
+	{
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Video muted",
+      "default": true
+    }
+]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
