@@ -1,12 +1,96 @@
 {% assign products_per_page = section.settings.products_per_page %}
 
 {% paginate collection.products by products_per_page %}
+  {% style %}
+    #datagrid {
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-  {% for product in collection.products %}
-    datahere
-  {% endfor %}
+    #datagrid td,
+    #datagrid th {
+      padding: 8px;
+    }
+
+    #datagrid tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #datagrid tr:hover {
+      background-color: #ddd;
+    }
+
+    #datagrid tr:nth-child(1) {
+      background-color: #84837F;
+    }
+    #datagrid tr:first-child th:first-child {
+      border-top-left-radius: 10px;
+    }
+    #datagrid tr:first-child th:last-child {
+      border-top-right-radius: 10px;
+    }
+
+    #datagrid th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: center;
+      color: white;
+      position: relative;
+
+    }
+
+    th:after {
+      content: '|';
+      position: absolute;
+      left: 100%;
+      width: 100%;
+      text-align: left;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    tr {
+      text-align: center;
+    }
+    input[type=text] {
+      height: 1em;
+      width: 5em;
+    }
+  {%endstyle%}
+
+
+
+  <table id="datagrid">
+    <tr>
+      <th>MODEL NO.</th>
+      <th>
+        ROD SERIES
+        <div id="like_button_container"><input type="text"></div>
+      </th>
+      <th>Country</th>
+    </tr>
+    {% for product in collection.products %}
+      <tr>
+        <td>{{ product.title }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+      </tr>
+    {% endfor %}
+
+  </table>
+
 
 {% endpaginate %}
+
+{% comment %}
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="{{'inputAutoCompleteMui.js' | asset_url }}"></script>
+{% endcomment %}
 
 {% schema %}
   {
